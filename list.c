@@ -85,12 +85,12 @@ void list_add_at_index(list_t *l, elem value, int index) {
 	list_t *new_node = list_alloc(value);
 	int i = 0;
 	node_t *t = l->head;
-	while(t->next != NULL && i < index){
+	while(t->next != NULL && i != index){
 		t = t->next;
 		i++;
 	}
-	new_node->head->next = t->next;
-	t->next = new_node->head;
+	new_node->head->next = t;
+	t = new_node->head;
   }
 
 elem list_remove_from_back(list_t *l) {
@@ -142,9 +142,10 @@ bool list_is_in(list_t *l, elem value) {
 		return;
 	}
 	node_t *t = l->head;
-	while(t->next){
+	while(t->next && t->value != value){
 		t = t->next;
 	}
+  printf("%d is in \n", t->value);
 	return t->value == value;
 }
 
